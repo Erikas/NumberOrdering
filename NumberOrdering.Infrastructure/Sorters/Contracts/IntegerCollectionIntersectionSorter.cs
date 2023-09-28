@@ -1,10 +1,13 @@
 ﻿namespace NumberOrdering.Infrastructure.Sorters.Contracts
 {
-    public class IntegerArrayIntersectionSorter : ICustomArraySorter<int>
+    public class IntegerCollectionIntersectionSorter : ICustomSorter<int>
     {
-        public void Sort(int[] array)
+        public IEnumerable<int> Sort(IEnumerable<int> collection)
         {
+            var array = collection.ToArray();
+
             var arrayLength = array.Length;
+
 
             for (var i = 1;i < arrayLength; i++)
             {
@@ -18,6 +21,8 @@
                     previousIndexIterator--;
                 }
             }
+
+            return array;
         }
     }
 }

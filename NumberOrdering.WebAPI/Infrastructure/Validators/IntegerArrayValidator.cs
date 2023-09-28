@@ -6,12 +6,14 @@ namespace NumberOrdering.WebAPI.Infrastructure.Validators
     {
         public override bool IsValid(object? value)
         {
-            if (value is not int[] array)
+            if (value is not IEnumerable<int> collection)
             {
                 return false;
             }
 
-            if (array.Length > 10 || array.Length == 0 || array.Any(x => x > 10))
+            var numberOfElements = collection.Count();
+
+            if (numberOfElements > 10 || numberOfElements == 0 || collection.Any(x => x > 10))
             {
                 return false;
             }

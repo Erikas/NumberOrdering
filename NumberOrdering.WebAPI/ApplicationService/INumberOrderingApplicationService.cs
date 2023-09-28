@@ -6,8 +6,8 @@ namespace NumberOrdering.WebAPI.ApplicationService
 {
     public interface INumberOrderingApplicationService
     {
-        Task ProcessAsync(int[] array);
-        Task<int[]> ReadAsync();
+        Task ProcessAsync(IEnumerable<int> collection);
+        Task<IEnumerable<int>> ReadAsync();
     }
 
     internal class NumberOrderingApplicationService : INumberOrderingApplicationService
@@ -25,15 +25,15 @@ namespace NumberOrdering.WebAPI.ApplicationService
             _configuration = configuration;
         }
 
-        public async Task ProcessAsync(int[] array)
+        public async Task ProcessAsync(IEnumerable<int> collection)
         {
             var resultFileName = _configuration.GetValue<string>("ResultFileName");
-            _numberOrderingService.Sort(array);
-            var text = string.Join(" ", array);
+            var sortedCollection = _numberOrderingService.Sort(collection);
+            var text = string.Join(" ", sortedCollection);
             await _dataManagerProviderService.WriteAsync(text, resultFileName);
         }
 
-        public async Task<int[]> ReadAsync()
+        public async Task<IEnumerable<int>> ReadAsync()
         {
             try
             {

@@ -9,7 +9,7 @@
 
         public static class FileErrorMessages
         {
-            public static string IncorrectContentFormat = "Error a file Content has an incorrect format";
+            public const string IncorrectContentFormat = "Error a file Content has an incorrect format";
         }
     }
 }

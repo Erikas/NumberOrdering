@@ -4,9 +4,9 @@ using Xunit;
 
 namespace NumberOrdering.UnitTests.Sorters
 {
-    public class IntegerArrayIntersectionSorterTests
+    public class IntegerCollectionIntersectionSorterTests
     {
-        private readonly IntegerArrayIntersectionSorter _sorter = new();
+        private readonly IntegerCollectionIntersectionSorter _sorter = new();
         private readonly Fixture _fixture = new();
 
 
@@ -21,13 +21,11 @@ namespace NumberOrdering.UnitTests.Sorters
         {
             var data= _fixture.CreateMany<int>(numberOfElements).ToArray();
 
-            var originalArray = new int[data.Length];
-            data.CopyTo(originalArray, 0);
-            Array.Sort(originalArray);
+            var sortedCollection = _sorter.Sort(data);
 
-            _sorter.Sort(data);
+            Array.Sort(data);
 
-            Assert.Equal(originalArray, data);
+            Assert.Equal(data.AsEnumerable(), sortedCollection);
         }
     }
 }

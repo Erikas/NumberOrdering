@@ -17,23 +17,23 @@ namespace NumberOrdering.WebAPI.Controllers
         }
 
         [HttpPost("Sort")]
-        [ProducesResponseType(typeof(int[]), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(void), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ValidationProblemDetails), (int)HttpStatusCode.BadRequest)]
         [Produces("text/json")]
-        public async Task<ActionResult> PostIntegerArrayAsync([FromBody][IntegerArrayValidator] int[] array)
+        public async Task<ActionResult> PostIntegerCollectionAsync([FromBody][IntegerArrayValidator] IEnumerable<int> collection)
         {
-             await _numberOrderingApplicationService.ProcessAsync(array);
-             return Ok(array);
+             await _numberOrderingApplicationService.ProcessAsync(collection);
+             return Ok();
         }
 
-        [HttpGet("SortedIntegerArray")]
-        [ProducesResponseType(typeof(int[]), (int)HttpStatusCode.OK)]
+        [HttpGet("SortedIntegerCollection")]
+        [ProducesResponseType(typeof(IEnumerable<int>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(void), (int)HttpStatusCode.NotFound)]
         [Produces("text/json")]
-        public async Task<ActionResult> GetSortedIntegerArrayAsync()
+        public async Task<ActionResult<IEnumerable<int>>> GetSortedIntegerCollectionAsync()
         {
-            var array = await _numberOrderingApplicationService.ReadAsync();
-            return Ok(array);
+            var collection = await _numberOrderingApplicationService.ReadAsync();
+            return Ok(collection);
         }
     }
 }

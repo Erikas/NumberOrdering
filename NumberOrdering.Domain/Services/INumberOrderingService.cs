@@ -1,24 +1,23 @@
 ﻿using NumberOrdering.Infrastructure.Sorters.Contracts;
-using NumberOrdering.Persistence.Contracts;
 
 namespace NumberOrdering.Domain.Services
 {
     public interface INumberOrderingService
     {
-        void Sort(int[] array);
+        IEnumerable<int> Sort(IEnumerable<int> collection);
     }
 
     internal class NumberOrderingService : INumberOrderingService
     {
-        private readonly ICustomArraySorter<int> _customArraySorter;
-        public NumberOrderingService(ICustomArraySorter<int> customArraySorter)
+        private readonly ICustomSorter<int> _customSorter;
+        public NumberOrderingService(ICustomSorter<int> customArraySorter)
         {
-            _customArraySorter = customArraySorter;
+            _customSorter = customArraySorter;
         }
 
-        public void Sort(int[] array)
+        public IEnumerable<int> Sort(IEnumerable<int> collection)
         {
-            _customArraySorter.Sort(array);
+           return _customSorter.Sort(collection);
         }
 
 
