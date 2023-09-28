@@ -5,35 +5,22 @@ namespace NumberOrdering.Domain.Services
 {
     public interface INumberOrderingService
     {
-        Task SortAndSave(int[] array, string resultFileName);
-        Task<int[]> ReadAsync(string resultFileName);
+        void Sort(int[] array);
     }
 
     internal class NumberOrderingService : INumberOrderingService
     {
         private readonly ICustomArraySorter<int> _customArraySorter;
-        private readonly IDataManagerProvider _dataManagerProvider;
-        public NumberOrderingService(ICustomArraySorter<int> customArraySorter,
-            IDataManagerProvider dataManagerProvider)
+        public NumberOrderingService(ICustomArraySorter<int> customArraySorter)
         {
             _customArraySorter = customArraySorter;
-            _dataManagerProvider = dataManagerProvider;
         }
 
-        public async Task SortAndSave(int[] array, string resultFileName)
+        public void Sort(int[] array)
         {
             _customArraySorter.Sort(array);
-
-            var result = string.Join(" ", array);
-
-            await _dataManagerProvider.WriteAsync(result, resultFileName);
         }
 
-        public async Task<int[]> ReadAsync(string filePath)
-        {
-            var text = await _dataManagerProvider.ReadAsync(filePath);
-             return text.Split(" ").Select(int.Parse).ToArray() ?? throw new InvalidCastException();
 
-        }
     }
 }

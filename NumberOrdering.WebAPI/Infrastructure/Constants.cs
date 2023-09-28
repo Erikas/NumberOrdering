@@ -5,7 +5,11 @@
         public static class HttpCodesErrorMessages
         {
             public static string NotFound(string resourceName) => $"Not Found {resourceName}";
-            public const string InternalServerError = "Something went wrong. A code monkey is fixing it";
+        }
+
+        public static class FileErrorMessages
+        {
+            public static string IncorrectContentFormat = "Error a file Content has an incorrect format";
         }
     }
 }

@@ -22,7 +22,7 @@ namespace NumberOrdering.WebAPI.Controllers
         [Produces("text/json")]
         public async Task<ActionResult> PostIntegerArrayAsync([FromBody][IntegerArrayValidator] int[] array)
         {
-             await _numberOrderingApplicationService.SortAndSave(array);
+             await _numberOrderingApplicationService.ProcessAsync(array);
              return Ok(array);
         }
 

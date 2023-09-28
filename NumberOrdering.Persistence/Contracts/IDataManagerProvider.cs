@@ -2,8 +2,8 @@
 {
     public interface IDataManagerProvider
     {
-        Task WriteAsync(string text, string filePath);
-        Task<string> ReadAsync(string filePath);   
+        Task WriteAsync(string text, string fileName);
+        Task<string> ReadAsync(string fileName);   
 
     }
 }

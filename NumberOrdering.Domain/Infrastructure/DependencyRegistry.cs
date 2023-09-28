@@ -12,6 +12,7 @@ namespace NumberOrdering.Domain.Infrastructure
         {
             services.AddScoped<IDataManagerProvider, FileSystemDataManagerProvider>();
             services.AddScoped<INumberOrderingService, NumberOrderingService>();
+            services.AddScoped<IDataManagerProviderService, DataManagerProviderService>();
             services.AddScoped<ICustomArraySorter<int>, IntegerArrayIntersectionSorter>();
         }
     }
