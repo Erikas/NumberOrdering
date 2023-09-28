@@ -7,7 +7,7 @@ namespace NumberOrdering.WebAPI.ApplicationService
     public interface INumberOrderingApplicationService
     {
         Task ProcessAsync(IEnumerable<int> collection);
-        Task<IEnumerable<int>> ReadAsync();
+        Task<IEnumerable<int>> GetSortedIntegerCollectionAsync();
     }
 
     internal class NumberOrderingApplicationService : INumberOrderingApplicationService
@@ -30,15 +30,17 @@ namespace NumberOrdering.WebAPI.ApplicationService
             var resultFileName = _configuration.GetValue<string>("ResultFileName");
             var sortedCollection = _numberOrderingService.Sort(collection);
             var text = string.Join(" ", sortedCollection);
+            
             await _dataManagerProviderService.WriteAsync(text, resultFileName);
         }
 
-        public async Task<IEnumerable<int>> ReadAsync()
+        public async Task<IEnumerable<int>> GetSortedIntegerCollectionAsync()
         {
             try
             {
                 var resultFileName = _configuration.GetValue<string>("ResultFileName");
                 var text = await _dataManagerProviderService.ReadAsync(resultFileName);
+
                 return text.Split(" ").Select(int.Parse).ToArray() ?? throw new InvalidCastException();
             }
             catch (FileNotFoundException ex)

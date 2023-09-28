@@ -4,8 +4,8 @@ namespace NumberOrdering.Domain.Services
 {
     public interface IDataManagerProviderService
     {
-        Task<string> ReadAsync(string filePath); 
-        Task WriteAsync(string text, string filePath);
+        Task<string> ReadAsync(string fileName); 
+        Task WriteAsync(string text, string fileName);
     }
 
     internal class DataManagerProviderService : IDataManagerProviderService
@@ -16,9 +16,9 @@ namespace NumberOrdering.Domain.Services
             _dataManagerProvider = dataManagerProvider;
         }
 
-        public async Task<string> ReadAsync(string filePath)
+        public async Task<string> ReadAsync(string fileName)
         {
-            return  await _dataManagerProvider.ReadAsync(filePath);
+            return  await _dataManagerProvider.ReadAsync(fileName);
         }
 
         public async Task WriteAsync(string text, string fileName)
