@@ -16,6 +16,7 @@ namespace NumberOrdering.UnitTests.Sorters
         [InlineData(1000)]
         [InlineData(10000)]
         [InlineData(100000)]
+        [InlineData(0)]
         public void TestSort_HighNumberOfElements(int numberOfElements)
         {
             var data= _fixture.CreateMany<int>(numberOfElements).ToArray();
