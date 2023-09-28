@@ -30,7 +30,7 @@ namespace NumberOrdering.WebAPI.ApplicationService
             var resultFileName = _configuration.GetValue<string>("ResultFileName");
             var sortedCollection = _numberOrderingService.Sort(collection);
             var text = string.Join(" ", sortedCollection);
-            
+
             await _dataManagerProviderService.WriteAsync(text, resultFileName);
         }
 
@@ -41,7 +41,12 @@ namespace NumberOrdering.WebAPI.ApplicationService
                 var resultFileName = _configuration.GetValue<string>("ResultFileName");
                 var text = await _dataManagerProviderService.ReadAsync(resultFileName);
 
-                return text.Split(" ").Select(int.Parse).ToArray() ?? throw new InvalidCastException();
+                if (text.Length > 0)
+                {
+                    return text.Split(" ").Select(int.Parse).ToArray() ?? throw new InvalidCastException();
+                }
+
+                return Enumerable.Empty<int>();
             }
             catch (FileNotFoundException ex)
             {

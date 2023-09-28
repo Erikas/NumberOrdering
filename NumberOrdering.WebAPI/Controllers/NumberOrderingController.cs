@@ -32,7 +32,7 @@ namespace NumberOrdering.WebAPI.Controllers
         [Produces("text/json")]
         public async Task<ActionResult<IEnumerable<int>>> GetSortedIntegerCollectionAsync()
         {
-            var collection = await _numberOrderingApplicationService.ReadAsync();
+            var collection = await _numberOrderingApplicationService.GetSortedIntegerCollectionAsync();
             return Ok(collection);
         }
     }
